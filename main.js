@@ -27,22 +27,34 @@ const gameBoard = (() => {
   const determinePlayerTurn = {
 
 };
-const determineWinner = {
+  const determineWinner = {
 
-  };
+  }; 
   
-  return { gameBoard, gameBoardArr, determinePlayerTurn, determineWinner };
+  return { gameBoardArr, determinePlayerTurn, determineWinner };
 })();   
 
-const displayController = (() => ({ displayController }))(); 
 
-function createPlayer() { 
+function createPlayer(name) { 
+     
+     
      return { 
           
      }
 }  
 
 
+const displayController = (() => { 
+     
+     const printWinner = { 
+
+     } 
+
+
+     
+     
+     return { printWinner }
+})()
 
 
 

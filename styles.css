@@ -7,5 +7,45 @@
   .header-text { 
     color: white; 
     text-decoration: underline; 
-    font-size: 40px; 
+    font-size: 55px; 
+  }  
+
+  .input-field-name-containers { 
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* width: 13em;  */
   } 
+
+  .wrapper-for-name-inputs { 
+    display: flex; 
+    justify-content: center;
+  } 
+
+  .player1-text, .player2-text { 
+    font-size: 2rem;
+  } 
+
+  #player1-input-field, 
+  #player2-input-field { 
+    /* width: 18em; */
+    height: 2em;  
+    font-size: 20px; 
+  }
+  
+
+  .start-reset-btn-container { 
+    display: flex; 
+    justify-content: center; 
+    gap: 1em; 
+  } 
+
+  .start-game-btn, 
+  .reset-btn { 
+    background-color: purple;
+    color: white; 
+    height: 3em;
+    width: 8em;  
+    font-size: 1.5rem;
+  }
