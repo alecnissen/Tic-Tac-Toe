@@ -21,41 +21,71 @@
 
 
 
-const gameBoard = (() => { 
-  const gameBoardArr = []; 
+// const gameBoard = (() => { 
+//   const gameBoardArr = ['', '', '', '', '', '', '', '', '']; 
+
+// //   function () { 
+// //      for (let i = 0; i < 0; i++) { 
+// //           document.getElementById(i).textContent = gameBoardArr[i]; 
+// //      }
+// //   }
   
-  const determinePlayerTurn = {
+//   const determinePlayerTurn = { 
 
-};
-  const determineWinner = {
+// };
+//   const determineWinner = {
 
-  }; 
+//   }; 
   
-  return { gameBoardArr, determinePlayerTurn, determineWinner };
-})();   
+//   return { gameBoardArr, determinePlayerTurn, determineWinner, renderGameBoard };
+// })();   
 
 
-function createPlayer(name) { 
+// function createPlayer(name) { 
      
      
-     return { 
+//      return { 
           
-     }
-}  
+//      }
+// }  
 
 
-const displayController = (() => { 
+// const displayController = (() => { 
      
-     const printWinner = { 
+//      const printWinner = { 
 
-     } 
+//      } 
 
 
      
      
-     return { printWinner }
-})()
+//      return { printWinner }
+// })()
 
 
+
+
+const gameBoard = (() => {
+  // generates board
+  const board = new Array(9).fill(''); 
+
+  const setCell = (index, value) => { 
+    // function that updates the contents of a given array index
+  };
+
+  const resetBoard = () => { 
+    // function that resets the board to empty 
+  };
+
+  const getBoard = () => { 
+    // a function that returns a copy of the board 
+  };
+
+  return {
+    setCell,
+    resetBoard,
+    getBoard,
+  };
+})();
 
 
