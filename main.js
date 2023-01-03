@@ -127,13 +127,13 @@ const getBoard = () => {
 // }  
 
 
-function renderGameBoard () {  
+function renderGameBoard () {
   const boardContainer = document.querySelector('.board-container'); 
   
-   for (let i = 0; i < 10; i++) {
+   for (let i = 0; i < 9; i++) {
      const boardSquares = document.createElement('div'); 
      boardSquares.classList.add('box');
      boardContainer.append(boardSquares);
     }
   }
-  renderGameBoard(); 
+renderGameBoard();
