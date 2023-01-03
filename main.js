@@ -33,7 +33,34 @@ const gameBoard = (() => {
   };
 })();
 
-function renderGameBoard() {
+// function renderGameBoard() {
+//   const boardContainer = document.querySelector('.board-container');
+
+//   for (let i = 0; i < 9; i++) {
+//     const boardSquares = document.createElement('div');
+//     boardSquares.classList.add('box');
+//     boardContainer.append(boardSquares);
+//   }
+// }
+// renderGameBoard();
+
+// const displayController = (() => {
+//   const renderBoardToDOM = function() {
+//     const boardContainer = document.querySelector('.board-container');
+
+//     for (let i = 0; i < 9; i++) {
+//       const boardSquares = document.createElement('div');
+//       boardSquares.classList.add('box');
+//       boardContainer.append(boardSquares);
+//     }
+//   }
+//   return {
+//     renderBoardToDOM
+//   }
+// })()
+
+const displayController = (() => { 
+const renderBoardToDOM = function() {
   const boardContainer = document.querySelector('.board-container');
 
   for (let i = 0; i < 9; i++) {
@@ -42,4 +69,9 @@ function renderGameBoard() {
     boardContainer.append(boardSquares);
   }
 }
-renderGameBoard();
+return { 
+  renderBoardToDOM
+}
+})() 
+
+displayController.renderBoardToDOM();
