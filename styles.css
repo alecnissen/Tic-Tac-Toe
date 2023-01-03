@@ -1,7 +1,7 @@
 .header-container { 
     display: flex; 
     justify-content: center; 
-    background-color: purple; 
+    background-color: navy; 
   } 
   
   .header-text { 
@@ -16,6 +16,7 @@
     /* justify-content: center; */
     align-items: center;
     /* width: 13em;  */
+    color: white; 
   } 
 
   .wrapper-for-name-inputs { 
@@ -68,13 +69,19 @@
     width: 300px; 
     /* justify-self: center; */
     margin: 40px auto;
+    justify-content: center;
+    gap: 4px; 
   }
 
   .box {
     display: flex;
     justify-content: center;
-    background-color: wheat;
+    background-color: white;
     border: 1px solid black; 
-    height: 140px; 
-    width: 140px;  
-  }          
+    height: 170px; 
+    width: 170px;  
+  }      
+  
+  body { 
+    background-color: navy;
+  }
