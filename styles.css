@@ -53,12 +53,21 @@
 
 
 
-  .gameboard-container { 
+  /* .gameboard-container { 
     background-color: pink;
-  } 
+  }  */ 
 
-  .styling-for-board-squares { 
-    height: 1em; 
-    width: 1em; 
-    background-color: red;
+  .board-container { 
+    /* background-color: green; */ 
+    display: flex; 
+    justify-content: center;
   }
+
+  .box {
+    display: flex;
+    justify-content: center;
+    background-color: green;
+    border: 1px solid black; 
+    height: 25px; 
+    width: 25px; 
+  } 

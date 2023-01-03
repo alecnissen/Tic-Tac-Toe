@@ -70,7 +70,7 @@ const gameBoard = (() => {
   const board = ['', '', '', '', '', '', '', '','']; 
 
   const checkForWin = (marker) => { 
-     const winConditions = /* something to store all possible wins */
+      /* something to store all possible wins */
      // then check if one of those win conditions matches the board,
      //  for the current marker?
   };
@@ -102,24 +102,38 @@ const getBoard = () => {
 
 
 
-const displayController = (() => { 
-     renderBoard: function () { 
-      const boardContainer = document.createElement('container'); 
-
-      for (let i = 0; i < 10; i++) { 
-        const boardSquares = document.createElement('div'); 
-        boardSquares.classList.add('styling-for-board-squares'); 
-        // apply stles 
-        boardContainer.append(boardSquares); 
-      }
-
-     return { 
-          renderBoard 
-     }
-
-})() 
+// const displayController = (() => { 
+  
+//   return { 
+//     renderBoard 
+//   }
+  
+// })() 
 
 
 
 
+// function renderGameBoard () {  
+// const boardContainer = document.querySelector('.board-container'); 
+// //  document.body.append(boardContainer); 
 
+//  for (let i = 0; i < 10; i++) { 
+//    const boardSquares = document.createElement('div'); 
+//    boardSquares.classList.add('styling-for-board-squares'); 
+//    // apply stles 
+//    boardContainer.append(boardSquares); 
+//   }
+
+// }  
+
+
+function renderGameBoard () {  
+  const boardContainer = document.querySelector('.board-container'); 
+  
+   for (let i = 0; i < 10; i++) {
+     const boardSquares = document.createElement('div'); 
+     boardSquares.classList.add('box');
+     boardContainer.append(boardSquares);
+    }
+  }
+  renderGameBoard(); 
