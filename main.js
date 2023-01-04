@@ -59,19 +59,40 @@ const gameBoard = (() => {
 //   }
 // })()
 
-const displayController = (() => { 
-const renderBoardToDOM = function() {
-  const boardContainer = document.querySelector('.board-container');
+const displayController = (() => {
+  const renderBoardToDOM = function () {
+    const boardContainer = document.querySelector('.board-container');
 
-  for (let i = 0; i < 9; i++) {
-    const boardSquares = document.createElement('div');
-    boardSquares.classList.add('box');
-    boardContainer.append(boardSquares);
-  }
-}
-return { 
-  renderBoardToDOM
-}
-})() 
+    for (let i = 0; i < 9; i++) {
+      const boardSquares = document.createElement('div');
+      boardSquares.classList.add('box');
+      boardContainer.append(boardSquares);
+    }
+  };
+  return {
+    renderBoardToDOM,
+  };
+})();
 
 displayController.renderBoardToDOM();
+
+// handle events when start game button is pressed
+
+const startGameButton = document.querySelector('.start-game-btn');
+
+const getPlayerNames = startGameButton.addEventListener('click', function (e) {
+
+  e.preventDefault();
+
+  const playerInputValue1 = document.getElementById('player1-input-field').value;
+
+  const playerInputValue2 = document.getElementById('player2-input-field').value; 
+
+  console.log(playerInputValue1);
+  console.log(playerInputValue2);
+  // createPlayerObject(playerInputValue1, playerInputValue2);
+});
+
+// function createPlayerObject (player1, player2) {
+
+// }

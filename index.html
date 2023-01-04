@@ -10,24 +10,25 @@
 <body>
     <div class="header-container"> 
         <h1 class="header-text">Tic-Tac-Toe </h1> 
-        </div> 
+        </div>  
 
-
+        <form method="get"> 
         <div class="wrapper-for-name-inputs"> 
         <div class="input-field-name-containers"> 
             <div class="player1-text">Player1 Name</div>
-        <input type="text" id="player1-input-field">
+        <input type="text" id="player1-input-field" required>
             <br>
             <div class="player2-text">Player2 Name</div>
-            <input type="text" id="player2-input-field">
+            <input type="text" id="player2-input-field" required>
             <br> 
         </div> 
-    </div>
+    </div> 
 
     <div class="start-reset-btn-container"> 
-    <button class="start-game-btn">Start Game</button> 
+    <button class="start-game-btn" type="submit">Start Game</button> 
     <button class="reset-btn">Reset</button> 
     </div> 
+</form> 
 
     <br> 
     <br>
