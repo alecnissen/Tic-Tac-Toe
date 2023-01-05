@@ -69,6 +69,7 @@ const displayController = (() => {
       boardContainer.append(boardSquares);
     }
   };
+
   return {
     renderBoardToDOM,
   };
@@ -80,19 +81,22 @@ displayController.renderBoardToDOM();
 
 const startGameButton = document.querySelector('.start-game-btn');
 
-const getPlayerNames = startGameButton.addEventListener('click', function (e) {
-
-  e.preventDefault();
+ startGameButton.addEventListener('click', function (e) {
+  e.preventDefault(); 
 
   const playerInputValue1 = document.getElementById('player1-input-field').value;
 
-  const playerInputValue2 = document.getElementById('player2-input-field').value; 
+  const playerInputValue2 = document.getElementById('player2-input-field').value;
 
-  console.log(playerInputValue1);
-  console.log(playerInputValue2);
-  // createPlayerObject(playerInputValue1, playerInputValue2);
+  createPlayerObject(playerInputValue1, playerInputValue2);
+
 });
 
-// function createPlayerObject (player1, player2) {
-
-// }
+function createPlayerObject(player1, player2) {
+  console.log(player1); 
+  console.log(player2);
+  return { 
+    player1,
+    player2,
+  };
+} 
