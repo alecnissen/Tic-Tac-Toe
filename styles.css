@@ -84,4 +84,11 @@
   
   body { 
     background-color: navy;
+  } 
+
+  .main-text-output-field { 
+    display: flex; 
+    justify-content: center; 
+    color: white; 
+    font-size: 3rem; 
   }

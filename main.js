@@ -1,3 +1,7 @@
+let playerA;
+let playerB;
+
+
 const gameBoard = (() => {
   // generates board
   const board = ['', '', '', '', '', '', '', '', ''];
@@ -28,25 +32,26 @@ const gameBoard = (() => {
 
   const startGameFunction = startGameButton.addEventListener('click', function (e) {
     e.preventDefault();
+    
     const playerInputValue1 = document.getElementById('player1-input-field').value;
-    const player1Mark = 'X';
+    
     const playerInputValue2 = document.getElementById('player2-input-field').value;
-    const player2Mark = 'O';
-    playerFactory1(playerInputValue1, player1Mark);
-    playerFactory2(playerInputValue2, player2Mark);
+    
+     playerA = playerFactory(playerInputValue1, 'X');
+  
+     playerB = playerFactory(playerInputValue2, 'O');
+
+     displayController.printOutput();
   });
-
-  const playerFactory1 = createPlayerObject1 = (name, mark) => {
+  
+  const playerFactory = (name, mark) => {
     console.log(name);
     console.log(mark);
     return { name, mark };
   };
 
-  const playerFactory2 = createPlayerObject2 = (name, mark) => {
-    console.log(name);
-    console.log(mark);
-    return { name, mark };
-  };
+  // const player1 = (playerFactory.name, playerFactory.mark);
+  // const player2 = (playerFactory.name, playerFactory.mark);
 
   return {
     setCell,
@@ -54,9 +59,6 @@ const gameBoard = (() => {
     getBoard,
     checkForWin,
     resetBoard,
-    startGameFunction,
-    playerFactory1,
-    playerFactory2,
   };
 })();
 
@@ -71,13 +73,22 @@ const displayController = (() => {
       boardContainer.append(boardSquares);
     }
   };
+
+  const printOutput = () => {
+    let outputContainer = document.querySelector('.main-text-output-field');
+
+    outputContainer.textContent = `${playerA.name}`;
+  };
+
   return {
     renderBoardToDOM,
+    printOutput,
   };
 })();
 
 displayController.renderBoardToDOM();
 
+displayController.printOutput();
 // handle events when start game button is pressed
 
 // const startGameButton = document.querySelector('.start-game-btn');
