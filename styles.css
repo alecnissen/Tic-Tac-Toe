@@ -91,4 +91,15 @@
     justify-content: center; 
     color: white; 
     font-size: 3rem; 
+    font-style: italic;
+  } 
+
+  /* .x-mark-style { 
+   color: yellow;
+   height: 10px; 
+  }  
+
+  span { 
+    height: 10px;
   }
+ */

@@ -1,6 +1,35 @@
 let playerA;
-let playerB;
+let playerB; 
 
+// Cache DOM:
+
+const boardContainer = document.querySelector('.boardContainer');
+const boardSquares = document.querySelectorAll('.box');
+
+let boardSquaresArray = Array.from(boardSquares);
+
+
+ function printSomething() { 
+  for (let i = 0; i < boardSquaresArray.length; i++) {
+    let square = boardSquaresArray[i];
+    square.addEventListener('click', function(e){ 
+      square.textContent = 'X';
+      document.append(square);
+    })
+  }
+}
+
+printSomething();
+
+// square.addEventListener('click', function (e) {
+//   e.target.textContent = 'X';
+//   document.append(boardSquares);
+// });
+
+
+// printThisShit.addEventListener('click',function(e){
+//   e.target.textContent = 'X';
+// })
 
 const gameBoard = (() => {
   // generates board
@@ -62,33 +91,48 @@ const gameBoard = (() => {
   };
 })();
 
-
 const displayController = (() => {
   const renderBoardToDOM = function () {
-    const boardContainer = document.querySelector('.board-container');
+    // const boardContainer = document.querySelector('.board-container');
 
-    for (let i = 0; i < 9; i++) {
-      const boardSquares = document.createElement('div');
-      boardSquares.classList.add('box');
+    // for (let i = 0; i < 9; i++) {
+      // const boardSquares = document.createElement('div');
+      // const boardSquares = document.querySelector('.box');
+      // boardSquares.classList.add('box');
       boardContainer.append(boardSquares);
+    // }
+  };
+
+  const fillPlayerMarker = () => {
+    for (let i = 0; i < boardSquares.length; i++) {
+      const cell = boardSquares[i];
+      console.log(cell);
+      cell.addEventListener('click', function(e){
+        if (cell.textContent === '') {
+          cell.textContent = `${playerA.name}`; // player mark
+        }
+      });
     }
   };
 
   const printOutput = () => {
     let outputContainer = document.querySelector('.main-text-output-field');
-
-    outputContainer.textContent = `${playerA.name}`;
+    // conditional inside to determine whose turn?
+    outputContainer.textContent = `${playerA.name}'s turn`;
   };
 
   return {
     renderBoardToDOM,
     printOutput,
+    fillPlayerMarker,
   };
 })();
 
 displayController.renderBoardToDOM();
 
 displayController.printOutput();
+
+displayController.fillPlayerMarker();
 // handle events when start game button is pressed
 
 // const startGameButton = document.querySelector('.start-game-btn');
