@@ -8,7 +8,7 @@ const boardSquares = document.querySelectorAll('.box');
 
 const boardSquaresArray = Array.from(boardSquares);
 
-let playerOneTurn = 'true';
+// let playerOneTurn = 'true';
 
 // function to determine players turn
 // function playerTurn() {
@@ -127,6 +127,7 @@ const displayController = (() => {
       cell.textContent = `${playerA.mark}`;
       playerOneTurn = 'false';
     } else if (playerOneTurn === 'false') {
+      let outputContainer = document.querySelector('.main-text-output-field');
       outputContainer.textContent = `${playerB.name}'s turn`;
       cell.textContent = `${playerB.mark}`;
       playerOneTurn = 'true';
