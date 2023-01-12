@@ -8,28 +8,33 @@ const boardSquares = document.querySelectorAll('.box');
 
 const boardSquaresArray = Array.from(boardSquares);
 
-// let playerOneTurn = 'true';
 
-// function to determine players turn
-// function playerTurn() {
-//   playerOneTurn = 'true';
-//   for (let i = 0; i < boardSquaresArray.length; i++) {
-//     const cell = boardSquaresArray[i];
-//     if (playerOneTurn === true) {
-//       cell.textContent = `${playerA.mark}`;
-//     } else if (playerOneTurn === false) {
-//       cell.textContent = `${playerB.mark}`;
-//     }
-//   }
-// }
+const startGameButton = document.querySelector('.start-game-btn');
 
-// playerTurn();
+const startGameFunction = startGameButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  
+  const playerInputValue1 = document.getElementById('player1-input-field').value;
+  
+  const playerInputValue2 = document.getElementById('player2-input-field').value;
+  
+   playerA = playerFactory(playerInputValue1, 'X');
 
-// make a function which can switch players and allow the player to make their specified mark.
+   playerB = playerFactory(playerInputValue2, 'O'); 
+
+  let outputField = document.querySelector('.main-text-output-field');
+  
+  outputField.textContent = `${playerA.name}'s turn`;
+
+});
+
+const playerFactory = (name, mark) => {
+  return { name, mark };
+};
 
 const gameBoard = (() => {
   // generates board
-  const board = ['', '', '', '', '', '', '', '', ''];
+  const board = new Array(9).fill('');
 
   const checkForWin = (marker) => {
     /* something to store all possible wins */
@@ -39,6 +44,8 @@ const gameBoard = (() => {
 
   const setCell = (index, value) => {
     // function that updates the contents of a given array index
+    board[index] = value;
+    return board;
   };
 
   const resetBoard = () => {
@@ -53,121 +60,266 @@ const gameBoard = (() => {
     return [...board];
   };
 
-// start game will just need to print player1 name, it just needs to print playersA name, the playerTurn function must dynamically switch between the two.
-
-  const startGameButton = document.querySelector('.start-game-btn');
-
-  const startGameFunction = startGameButton.addEventListener('click', function (e) {
-    e.preventDefault();
-    
-    const playerInputValue1 = document.getElementById('player1-input-field').value;
-    
-    const playerInputValue2 = document.getElementById('player2-input-field').value;
-    
-     playerA = playerFactory(playerInputValue1, 'X');
-
-     playerB = playerFactory(playerInputValue2, 'O'); 
-
-    let outputField = document.querySelector('.main-text-output-field');
-    
-    outputField.textContent = `${playerA.name}'s turn`;
-
-  });
-  
-  const playerFactory = (name, mark) => {
-    return { name, mark };
-  };
-
-  const player1 = (playerFactory.name, playerFactory.mark);
-  const player2 = (playerFactory.name, playerFactory.mark);
-
   return {
+    board,
     setCell,
     resetBoard,
     getBoard,
     checkForWin,
     resetBoard,
   };
-})(); 
+})();
 
 
 const displayController = (() => {
-//   const renderBoardToDOM = function () {
-//     const boardContainer = document.querySelector('.board-container');
 
-//     for (let i = 0; i < 9; i++) {
-//       const boardSquares = document.createElement('div');
-//       boardSquares.classList.add('box');
-//     }
-//   } 
-  // player turn function will house all the logic, print whose turn and make the mark
-  // you will need an event listener on each cell, how can we work in an event listener for each cell,
-  // do we need another function which can invert playersTurn? How can I change the status of playerTurn,
-  // reassign the variable when the value changes,
+const boardCells = document.querySelectorAll('.box');
+const boardCellsArray = Array.from(boardSquares);
+// console.log(boardCellsArray);
+let playerTurn = 1;
 
-  // hello everyone I am running into an issue with ttt project, Basically I made one function, 
-  // which can switch players turn, print their name, and print their mark 
-  // the problem I am having now is that only player1 will print, the conditional logic I have in the function 
-  // will not print playerB, 
-  // my question is how can I dynamically change the value of playerturn? 
-  // it is defined in the global scope.
-  // in my function, I am using conditional logic, that if turn === this, print this and make your mark 
-  // else do this. The problem is playerOneTurn value never changes. 
+const updateBoard = (e) => {
+  const cellIndex = e.target.getAttribute('data-cell');
+  // console.log(cellIndex);
 
-
-
-  const playerTurn = () => {
-  playerOneTurn = 'true';
-  for (let i = 0; i < boardSquaresArray.length; i++) {
-    const cell = boardSquaresArray[i];
-    cell.addEventListener('click', function(){
-    if (playerOneTurn === 'true') {
-      let outputContainer = document.querySelector('.main-text-output-field');
-      outputContainer.textContent = `${playerA.name}'s turn`;
-      cell.textContent = `${playerA.mark}`;
-      playerOneTurn = 'false';
-    } else if (playerOneTurn === 'false') {
-      let outputContainer = document.querySelector('.main-text-output-field');
-      outputContainer.textContent = `${playerB.name}'s turn`;
-      cell.textContent = `${playerB.mark}`;
-      playerOneTurn = 'true';
-    }
-    });
+  if (playerTurn === 1) {
+    gameBoard.setCell(cellIndex, 'X');
+    playerTurn = 2;
+  } else {
+    gameBoard.setCell(cellIndex, 'O');
+    playerTurn = 1;
   }
-};
+  updateDOMCells();
+}
 
-// playerTurn();
+const updateDOMCells = () => {
+  // We are making the marks with updateBoard function, now we must grab the module,
+  // then grab the board, key into the board, then return the copy of the board 
+  // so it can be printed and updated to the DOM.
+  // console.log(gameBoard.board);
+  const grabTheBoard = gameBoard.board;
+  // boardContainer.append(grabTheBoard);
+  document.body.append(grabTheBoard);
+  // document.body.append(grabTheBoard);
 
-// const printMark = () => {
-//     for (let i = 0; i < boardSquaresArray.length; i++) {
-//       const square = boardSquaresArray[i];
-//       square.addEventListener('click', function (e){
-//         square.textContent = 'X';
-//         // document.append(square);
-//       });
-//     }
-// }
+  
+  // gameBoard.getBoard();
+  // looks at the board in gameboard module, reacts and changes to the DOM.
+}
+// console.log(gameBoard.board);
 
-//   const printOutput = () => {
-//     let outputContainer = document.querySelector('.main-text-output-field');
-//     outputContainer.textContent = `${playerA.name}'s turn`;
-//   };
+boardCellsArray.forEach(cell => {
+  cell.addEventListener('click', updateBoard);
+});
 
   return {
-    // renderBoardToDOM,
-    // printMark,
-    // printOutput,
-    playerTurn,
+    updateBoard,
+    updateDOMCells,
   };
 })();
 
-displayController.playerTurn();
+boardSquaresArray.forEach(cell => {
+  cell.addEventListener('click', function(e){
+    displayController.updateBoard(e);
+  });
+});
+
+// displayController.updateBoard();
+
+displayController.updateDOMCells();
+
+// let playerA;
+// let playerB;
+
+// // Cache DOM:
+
+// const boardContainer = document.querySelector('.boardContainer');
+// const boardSquares = document.querySelectorAll('.box');
+
+// const boardSquaresArray = Array.from(boardSquares);
+
+
+// const startGameButton = document.querySelector('.start-game-btn');
+
+// const startGameFunction = startGameButton.addEventListener('click', function (e) {
+//   e.preventDefault();
+  
+//   const playerInputValue1 = document.getElementById('player1-input-field').value;
+  
+//   const playerInputValue2 = document.getElementById('player2-input-field').value;
+  
+//    playerA = playerFactory(playerInputValue1, 'X');
+
+//    playerB = playerFactory(playerInputValue2, 'O'); 
+
+//   let outputField = document.querySelector('.main-text-output-field');
+  
+//   outputField.textContent = `${playerA.name}'s turn`;
+
+// });
+
+// const playerFactory = (name, mark) => {
+//   return { name, mark };
+// };
+
+// const gameBoard = (() => {
+//   // generates board
+//   const board = new Array(9).fill('');
+
+//   const checkForWin = (marker) => {
+//     /* something to store all possible wins */
+//     // then check if one of those win conditions matches the board,
+//     //  for the current marker?
+//   };
+
+//   const setCell = (index, value) => {
+//     // function that updates the contents of a given array index
+//     board[index] = value;
+//     return board;
+//   };
+
+//   const resetBoard = () => {
+//     // I don't ever return the actual board! I return
+//     //  a static copy of the board instead, each time `getBoard` gets called.
+//     // function that resets the board to empty
+//     board = new Array(9).fill('');
+//   };
+
+//   const getBoard = () => {
+//     // a function that returns a copy of the board
+//     return [...board];
+//   };
+
+//   return {
+//     board,
+//     setCell,
+//     resetBoard,
+//     getBoard,
+//     checkForWin,
+//     resetBoard,
+//   };
+// })();
+
+
+// const displayController = (() => {
+
+// const boardCells = document.querySelectorAll('.box');
+// const boardCellsArray = Array.from(boardSquares);
+// // console.log(boardCellsArray);
+// let playerTurn = 1;
+
+// const updateBoard = (e) => {
+//   const cellIndex = e.target.getAttribute('data-cell');
+//   // console.log(cellIndex);
+
+//   if (playerTurn === 1) {
+//     gameBoard.setCell(cellIndex, 'X');
+//     playerTurn = 2;
+//   } else {
+//     gameBoard.setCell(cellIndex, 'O');
+//     playerTurn = 1;
+//   }
+//   updateDOMCells();
+// }
+
+// const updateDOMCells = () => {
+//   // We are making the marks with updateBoard function, now we must grab the module,
+//   // then grab the board, key into the board, then return the copy of the board 
+//   // so it can be printed and updated to the DOM.
+//   // console.log(gameBoard.board);
+//   const grabTheBoard = gameBoard.board;
+//   boardContainer.append(grabTheBoard);
+//   document.append(boardContainer);
+//   // document.body.append(grabTheBoard);
+
+  
+//   // gameBoard.getBoard();
+//   // looks at the board in gameboard module, reacts and changes to the DOM.
+// }
+// // console.log(gameBoard.board);
+
+// boardCellsArray.forEach(cell => {
+//   cell.addEventListener('click', updateBoard);
+// });
+
+//   return {
+//     updateBoard,
+//     updateDOMCells,
+//   };
+// })();
+
+// boardSquaresArray.forEach(cell => {
+//   cell.addEventListener('click', function(e){
+//     displayController.updateBoard(e);
+//   });
+// });
+
+// // displayController.updateBoard();
+
+// displayController.updateDOMCells();
+
+// hey guys I am running into a problem with ttt project, 
+
+// Problem: I have a function which 'listen to' and will update/print to the DOM depending on what is
+// inside the board, I am not sure why I cannot render the board, I am grabbing the board from
+// the gameboard module, then trying to append it to the board container then append to the DOM
+// 
+
+// how can I render the updated board to the DOM? 
+
+// displayController.playerTurn();
 
 // displayController.renderBoardToDOM();
 
 // displayController.printMark();
 
-// displayController.printOutput();
+// displayController.printOutput(); 
+
+// bradly example code start
+
+// const gameBoard = (function() {
+//   const board = new Array(9).fill('')
+
+//   function setCell(index, value) {
+//     board[index] = value
+//     return board
+//   }
+
+//   return {
+//     board,
+//     setCell
+//   }
+// })()
+
+// const displayController = (function() {
+//   // assume each square has a data-cell attribute say what cell it should update on gameboard
+//   const boardSquares = document.querySelectorAll(".box");
+//   const playerTurn = 1
+
+//   function updateBoard(e) {
+//     const cellIndex = e.target.getAttribute('data-cell')
+//     // player turns could probably even be handled in gameBoard
+//     if(playerTurn === 1) {
+//       gameboard.setCell(cellIndex, 'X')
+//       playerTurn = 2
+//     } else {
+//       gameboard.setCell(cellIndex, 'O')
+//       playerTurn = 1
+//     }
+
+//     updateDOMCells()
+//   }
+
+//   function updateDOMCells() {
+//     /* a function that looks at gameboard.board and renders ('reacts to') changes in it to the DOM */
+//   }
+
+//   boardSquares.forEach(cell => {
+//     cell.addEventListener('click', updateBoard)
+//   })
+// })() 
+
+// bradly example code end
 
 // function printSomething () {
 //   for (let i = 0; i < boardSquaresArray.length; i++) {
