@@ -15,7 +15,7 @@ const startGameFunction = startGameButton.addEventListener('click', function (e)
   const playerInputValue1 = document.getElementById('player1-input-field').value;
   
   const playerInputValue2 = document.getElementById('player2-input-field').value;
-  
+
    playerA = playerFactory(playerInputValue1, 'X');
 
    playerB = playerFactory(playerInputValue2, 'O'); 
@@ -30,14 +30,45 @@ const playerFactory = (name, mark) => {
   return { name, mark };
 };
 
+// checking for winning conditions, need to check if 3 cells in a row
+// 3 cells can be horizontal, vertical, and diganol.
+// check if 3 cell INDEXES match a pattern.
+// check for win accepts a marker, what is a marker
+
+// function takes in a marker, should it take in the board???
+// pass the board to it, board is evaluated/checked, compared to see if board matches a condition
+// stores all winning combinations in an array 
+// conditional to check, if the board matches the winning conditions?
+// if board parameter passed in, .includes any of these winning combinations
+
+
 const gameBoard = (() => {
   // generates board
   const board = new Array(9).fill('');
+  // the board gets passed in, the board will need to be checked to see if it includes 
+  // any of the winning combinations below
+  const checkForWin = (board) => {
+    // all possible win combinations stored in an array 
+    let winningCombinations = [
+      // horizontal
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      // vertical
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      // Diagnal
+      [0, 4, 8],
+      [2, 4, 6],
 
-  const checkForWin = (marker) => {
+    ];
+    // what am I checking here? If the board passed in containers 
+  
+    // 
     /* something to store all possible wins */
     // then check if one of those win conditions matches the board,
-    //  for the current marker?
+    // for the current marker?
   };
 
   const setCell = (index, value) => {
@@ -67,7 +98,7 @@ const gameBoard = (() => {
     resetBoard,
   };
 })();
-
+// put update board within gameBoard module
 const displayController = (() => {
 
 const boardCells = document.querySelectorAll('.box');
@@ -78,18 +109,20 @@ let playerTurn = 1;
 const updateBoard = (e) => {
   const cellIndex = e.target.getAttribute('data-cell');
   
-  if (playerTurn === 1) { 
+  if (playerTurn === 1) {
     let textField = document.querySelector('.main-text-output-field');
   textField.textContent = `${playerB.name}'s turn`;
     gameBoard.setCell(cellIndex, 'X');
     playerTurn = 2;
+    gameBoard.checkForWin(gameBoard.board);
   } else {
     let textField = document.querySelector('.main-text-output-field');
 textField.textContent = `${playerA.name}'s turn`;
     gameBoard.setCell(cellIndex, 'O');
     playerTurn = 1;
+    gameBoard.checkForWin(gameBoard.board);
   }
-  console.log(gameBoard.board);
+  // console.log(gameBoard.board);
   updateDOMCells();
 }
 
@@ -99,8 +132,8 @@ const updateDOMCells = () => {
     console.log(cellID); 
      let value =  gameBoard.board[cellID];
      cell.textContent = `${value}`;
-    })
-}
+    });
+};
 
 // this out, do not need another loop and listener. 
 // boardCellsArray.forEach(cell => {
