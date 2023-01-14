@@ -8,12 +8,10 @@ const boardSquares = document.querySelectorAll('.box');
 
 const boardSquaresArray = Array.from(boardSquares);
 
-
 const startGameButton = document.querySelector('.start-game-btn');
 
 const startGameFunction = startGameButton.addEventListener('click', function (e) {
   e.preventDefault();
-  
   const playerInputValue1 = document.getElementById('player1-input-field').value;
   
   const playerInputValue2 = document.getElementById('player2-input-field').value;
@@ -70,7 +68,6 @@ const gameBoard = (() => {
   };
 })();
 
-
 const displayController = (() => {
 
 const boardCells = document.querySelectorAll('.box');
@@ -80,37 +77,35 @@ let playerTurn = 1;
 
 const updateBoard = (e) => {
   const cellIndex = e.target.getAttribute('data-cell');
-  // console.log(cellIndex);
-
-  if (playerTurn === 1) {
+  
+  if (playerTurn === 1) { 
+    let textField = document.querySelector('.main-text-output-field');
+  textField.textContent = `${playerB.name}'s turn`;
     gameBoard.setCell(cellIndex, 'X');
     playerTurn = 2;
   } else {
+    let textField = document.querySelector('.main-text-output-field');
+textField.textContent = `${playerA.name}'s turn`;
     gameBoard.setCell(cellIndex, 'O');
     playerTurn = 1;
   }
+  console.log(gameBoard.board);
   updateDOMCells();
 }
 
 const updateDOMCells = () => {
-  // We are making the marks with updateBoard function, now we must grab the module,
-  // then grab the board, key into the board, then return the copy of the board 
-  // so it can be printed and updated to the DOM.
-  // console.log(gameBoard.board);
-  const grabTheBoard = gameBoard.board;
-  // boardContainer.append(grabTheBoard);
-  document.body.append(grabTheBoard);
-  // document.body.append(grabTheBoard);
-
-  
-  // gameBoard.getBoard();
-  // looks at the board in gameboard module, reacts and changes to the DOM.
+  boardSquaresArray.forEach(cell => {
+    let cellID = cell.id;
+    console.log(cellID); 
+     let value =  gameBoard.board[cellID];
+     cell.textContent = `${value}`;
+    })
 }
-// console.log(gameBoard.board);
 
-boardCellsArray.forEach(cell => {
-  cell.addEventListener('click', updateBoard);
-});
+// this out, do not need another loop and listener. 
+// boardCellsArray.forEach(cell => {
+//   cell.addEventListener('click', updateBoard);
+// });
 
   return {
     updateBoard,
@@ -127,6 +122,284 @@ boardSquaresArray.forEach(cell => {
 // displayController.updateBoard();
 
 displayController.updateDOMCells();
+
+
+
+
+
+
+
+
+// let playerA;
+// let playerB;
+
+// // Cache DOM:
+
+// const boardContainer = document.querySelector('.boardContainer');
+// const boardSquares = document.querySelectorAll('.box');
+
+// const boardSquaresArray = Array.from(boardSquares);
+
+
+// const startGameButton = document.querySelector('.start-game-btn');
+
+// const startGameFunction = startGameButton.addEventListener('click', function (e) {
+//   e.preventDefault();
+  
+//   const playerInputValue1 = document.getElementById('player1-input-field').value;
+  
+//   const playerInputValue2 = document.getElementById('player2-input-field').value;
+  
+//    playerA = playerFactory(playerInputValue1, 'X');
+
+//    playerB = playerFactory(playerInputValue2, 'O'); 
+
+//   let outputField = document.querySelector('.main-text-output-field');
+  
+//   outputField.textContent = `${playerA.name}'s turn`;
+
+// });
+
+// const playerFactory = (name, mark) => {
+//   return { name, mark };
+// };
+
+// const gameBoard = (() => {
+//   // generates board
+//   const board = new Array(9).fill('');
+
+//   const checkForWin = (marker) => {
+//     /* something to store all possible wins */
+//     // then check if one of those win conditions matches the board,
+//     //  for the current marker?
+//   };
+
+//   const setCell = (index, value) => {
+//     // function that updates the contents of a given array index
+//     board[index] = value;
+//     return board;
+//   };
+
+//   const resetBoard = () => {
+//     // I don't ever return the actual board! I return
+//     //  a static copy of the board instead, each time `getBoard` gets called.
+//     // function that resets the board to empty
+//     board = new Array(9).fill('');
+//   };
+
+//   const getBoard = () => {
+//     // a function that returns a copy of the board
+//     return [...board];
+//   };
+
+//   return {
+//     board,
+//     setCell,
+//     resetBoard,
+//     getBoard,
+//     checkForWin,
+//     resetBoard,
+//   };
+// })();
+
+
+// const displayController = (() => {
+
+// const boardCells = document.querySelectorAll('.box');
+// const boardCellsArray = Array.from(boardSquares);
+// // console.log(boardCellsArray);
+// let playerTurn = 1;
+
+// const updateBoard = (e) => {
+//   const cellIndex = e.target.getAttribute('data-cell');
+//   // console.log(cellIndex);
+
+//   if (playerTurn === 1) {
+//     gameBoard.setCell(cellIndex, 'X');
+//     playerTurn = 2;
+//   } else {
+//     gameBoard.setCell(cellIndex, 'O');
+//     playerTurn = 1;
+//   }
+//   updateDOMCells();
+// }
+
+// const updateDOMCells = () => {
+//   // We are making the marks with updateBoard function, now we must grab the module,
+//   // then grab the board, key into the board, then return the copy of the board 
+//   // so it can be printed and updated to the DOM.
+//   // console.log(gameBoard.board);
+//   const grabTheBoard = gameBoard.board;
+//   // boardContainer.append(grabTheBoard);
+//   document.body.append(grabTheBoard);
+//   // document.body.append(grabTheBoard);
+
+  
+//   // gameBoard.getBoard();
+//   // looks at the board in gameboard module, reacts and changes to the DOM.
+// }
+// // console.log(gameBoard.board);
+
+// boardCellsArray.forEach(cell => {
+//   cell.addEventListener('click', updateBoard);
+// });
+
+//   return {
+//     updateBoard,
+//     updateDOMCells,
+//   };
+// })();
+
+// boardSquaresArray.forEach(cell => {
+//   cell.addEventListener('click', function(e){
+//     displayController.updateBoard(e);
+//   });
+// });
+
+// // displayController.updateBoard();
+
+// displayController.updateDOMCells();
+
+
+// let playerA;
+// let playerB;
+
+// // Cache DOM:
+
+// const boardContainer = document.querySelector('.boardContainer');
+// const boardSquares = document.querySelectorAll('.box');
+
+// const boardSquaresArray = Array.from(boardSquares);
+
+
+// const startGameButton = document.querySelector('.start-game-btn');
+
+// const startGameFunction = startGameButton.addEventListener('click', function (e) {
+//   e.preventDefault();
+  
+//   const playerInputValue1 = document.getElementById('player1-input-field').value;
+  
+//   const playerInputValue2 = document.getElementById('player2-input-field').value;
+  
+//    playerA = playerFactory(playerInputValue1, 'X');
+
+//    playerB = playerFactory(playerInputValue2, 'O'); 
+
+//   let outputField = document.querySelector('.main-text-output-field');
+  
+//   outputField.textContent = `${playerA.name}'s turn`;
+
+// });
+
+// const playerFactory = (name, mark) => {
+//   return { name, mark };
+// };
+
+// const gameBoard = (() => {
+//   // generates board
+//   const board = new Array(9).fill('');
+
+//   const checkForWin = (marker) => {
+//     /* something to store all possible wins */
+//     // then check if one of those win conditions matches the board,
+//     //  for the current marker?
+//   };
+
+//   const setCell = (index, value) => {
+//     // function that updates the contents of a given array index
+//     board[index] = value;
+//     return board;
+//   };
+
+//   const resetBoard = () => {
+//     // I don't ever return the actual board! I return
+//     //  a static copy of the board instead, each time `getBoard` gets called.
+//     // function that resets the board to empty
+//     board = new Array(9).fill('');
+//   };
+
+//   const getBoard = () => {
+//     // a function that returns a copy of the board
+//     return [...board];
+//   };
+
+//   return {
+//     board,
+//     setCell,
+//     resetBoard,
+//     getBoard,
+//     checkForWin,
+//     resetBoard,
+//   };
+// })();
+
+
+// const displayController = (() => {
+
+// const boardCells = document.querySelectorAll('.box');
+// const boardCellsArray = Array.from(boardSquares);
+// // console.log(boardCellsArray);
+// let playerTurn = 1;
+
+// const updateBoard = (e) => {
+//   const cellIndex = e.target.getAttribute('data-cell');
+//   // console.log(cellIndex);
+
+//   if (playerTurn === 1) {
+//     gameBoard.setCell(cellIndex, 'X');
+//     playerTurn = 2;
+//   } else {
+//     gameBoard.setCell(cellIndex, 'O');
+//     playerTurn = 1;
+//   }
+//   updateDOMCells();
+// }
+
+// const updateDOMCells = () => {
+//  // get the cells, add textContent to each cell
+//   // what are we adding to each cell ? 
+//   boardSquaresArray.forEach(cell => { 
+//     cell.addEventListener('click', function(){
+//     let value =  gameBoard.board;
+//     // console.log(value);
+//     cell.textContent = `${value}`;
+      
+//     })
+    
+//   })
+//   // const grabTheBoard = gameBoard.board;
+//   // boardContainer.append(grabTheBoard);
+//   // document.body.append(grabTheBoard);
+//   // document.body.append(grabTheBoard);
+
+  
+//   // gameBoard.getBoard();
+//   // looks at the board in gameboard module, reacts and changes to the DOM.
+// }
+// // console.log(gameBoard.board);
+
+// boardCellsArray.forEach(cell => {
+//   cell.addEventListener('click', updateBoard);
+// });
+
+//   return {
+//     updateBoard,
+//     updateDOMCells,
+//   };
+// })();
+
+// boardSquaresArray.forEach(cell => {
+//   cell.addEventListener('click', function(e){
+//     displayController.updateBoard(e);
+//   });
+// });
+
+// // displayController.updateBoard();
+
+// displayController.updateDOMCells();
+
+
+
 
 // let playerA;
 // let playerB;
