@@ -1,6 +1,8 @@
 let playerA;
 let playerB;
 
+// gameBoard.checkForWin(board);
+
 // Cache DOM:
 
 const boardContainer = document.querySelector('.boardContainer');
@@ -41,63 +43,92 @@ const playerFactory = (name, mark) => {
 // conditional to check, if the board matches the winning conditions?
 // if board parameter passed in, .includes any of these winning combinations
 
+// store the result of players choice after each turn,
 
 const gameBoard = (() => {
   // generates board
   const board = new Array(9).fill('');
+
+  // let updatedGameBoard = gameBoard.board;
   // the board gets passed in, the board will need to be checked to see if it includes 
   // any of the winning combinations below
-  const checkForWin = (board) => {
-    // all possible win combinations stored in an array 
+  const checkForWin = () => {
+    
+    // all possible win combinations stored in an array, .includes method and .some method
+    // function to store the results of each player after each turn, playerA = ['', 'x', 'x']
+    // playerB = ['', '', 'O']
+    // loop, check if winningCombinations[0]
+    // console.log(theBoard);
     let winningCombinations = [
-      // horizontal
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
-      // vertical
       [0, 3, 6],
       [1, 4, 7],
       [2, 5, 8],
-      // Diagnal
       [0, 4, 8],
       [2, 4, 6],
-
     ];
+    // how do I check players mark in order to determine winner? 
+    // conditional checks if that winning combo index is in that array, 
+    // while also checking to determine if the mark is an X or an O.
+    for (let i = 0; i < winningCombinations.length; i++) {
+      let winComboArray = winningCombinations[i];
+      let isAWin = true;
+
+      for (let j = 0; j < winComboArray.length; j++) {
+        let cellIndex = winComboArray[j];
+        console.log("cell index is:", cellIndex, "board is:", board);
+        if (board[cellIndex] && cellIndex === 'X') {
+          isAWin = true;
+          // call a function in displayController which prints the winner
+          // displayController.printWinner(isAWin);
+        } else if (!board[cellIndex] && cellIndex === 'X') { 
+          // displayController.printWinner(isAWin);
+          isAWin = false; 
+        }
+      // console.log(isAWin);
+      return isAWin;
+      };
+    }
+  };
+
+    // console.log(isAWin);
+    // return isAWin;
     // what am I checking here? If the board passed in containers 
-  
-    // 
+    //
     /* something to store all possible wins */
     // then check if one of those win conditions matches the board,
     // for the current marker?
-  };
 
-  const setCell = (index, value) => {
+    const setCell = (index, value) => {
     // function that updates the contents of a given array index
-    board[index] = value;
-    return board;
-  };
+      board[index] = value;
+      return board;
+    };
 
-  const resetBoard = () => {
+    const resetBoard = () => {
     // I don't ever return the actual board! I return
     //  a static copy of the board instead, each time `getBoard` gets called.
     // function that resets the board to empty
-    board = new Array(9).fill('');
-  };
+      board = new Array(9).fill('');
+    };
 
-  const getBoard = () => {
+    const getBoard = () => {
     // a function that returns a copy of the board
-    return [...board];
-  };
+      return [...board];
+    };
 
-  return {
-    board,
-    setCell,
-    resetBoard,
-    getBoard,
-    checkForWin,
-    resetBoard,
-  };
+    return {
+      board,
+      setCell,
+      resetBoard,
+      getBoard,
+      checkForWin,
+      resetBoard,
+    };
 })();
+
 // put update board within gameBoard module
 const displayController = (() => {
 
@@ -107,32 +138,41 @@ const boardCellsArray = Array.from(boardSquares);
 let playerTurn = 1;
 
 const updateBoard = (e) => {
-  const cellIndex = e.target.getAttribute('data-cell');
-  
-  if (playerTurn === 1) {
-    let textField = document.querySelector('.main-text-output-field');
-  textField.textContent = `${playerB.name}'s turn`;
-    gameBoard.setCell(cellIndex, 'X');
-    playerTurn = 2;
-    gameBoard.checkForWin(gameBoard.board);
-  } else {
-    let textField = document.querySelector('.main-text-output-field');
-textField.textContent = `${playerA.name}'s turn`;
-    gameBoard.setCell(cellIndex, 'O');
-    playerTurn = 1;
-    gameBoard.checkForWin(gameBoard.board);
-  }
-  // console.log(gameBoard.board);
+    const cellIndex = e.target.getAttribute('data-cell');
+    if (playerTurn === 1) {
+      let textField = document.querySelector('.main-text-output-field');
+      textField.textContent = `${playerB.name}'s turn`;
+      gameBoard.setCell(cellIndex, 'X');
+      playerTurn = 2;
+    // gameBoard.checkForWin(gameBoard.board);
+    } else {
+      let textField = document.querySelector('.main-text-output-field');
+      textField.textContent = `${playerA.name}'s turn`;
+      gameBoard.setCell(cellIndex, 'O');
+      playerTurn = 1;
+    // gameBoard.checkForWin(gameBoard.board);
+    }
+    // console.log(gameBoard.board);
   updateDOMCells();
-}
+};
 
 const updateDOMCells = () => {
-  boardSquaresArray.forEach(cell => {
-    let cellID = cell.id;
-    console.log(cellID); 
-     let value =  gameBoard.board[cellID];
-     cell.textContent = `${value}`;
+    boardSquaresArray.forEach(cell => {
+      let cellID = cell.id;
+      // console.log(cellID);
+      let value = gameBoard.board[cellID];
+      cell.textContent = `${value}`;
     });
+};
+
+const printWinner = (condition) => {
+    if (condition === true) {
+      let printWinnerDOM = document.querySelector('.main-text-output-field');
+      printWinnerDOM.textContent = 'Player1 Wins';
+    } else {
+      let printWinnerDOM = document.querySelector('.main-text-output-field');
+      printWinnerDOM.textContent = 'Player2 Wins';
+    }
 };
 
 // this out, do not need another loop and listener. 
@@ -141,13 +181,14 @@ const updateDOMCells = () => {
 // });
 
   return {
+    printWinner,
     updateBoard,
     updateDOMCells,
   };
 })();
 
 boardSquaresArray.forEach(cell => {
-  cell.addEventListener('click', function(e){
+  cell.addEventListener('click', function (e){
     displayController.updateBoard(e);
   });
 });
@@ -156,12 +197,7 @@ boardSquaresArray.forEach(cell => {
 
 displayController.updateDOMCells();
 
-
-
-
-
-
-
+// gameBoard.checkForWin(board);
 
 // let playerA;
 // let playerB;
