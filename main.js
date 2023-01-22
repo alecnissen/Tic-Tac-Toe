@@ -45,11 +45,11 @@ const playerFactory = (name, mark) => {
 
 // store the result of players choice after each turn,
 
+let winner;
 const gameBoard = (() => {
   // generates board
   const board = new Array(9).fill('');
   const checkForWin = () => {
-    let winner;
     let winningCombinations = [
      [board[0], board[1], board[2]],
      [board[3], board[4], board[5]],
@@ -68,34 +68,35 @@ const gameBoard = (() => {
         return element === "O";
       } 
 
-      // winningCombinations.forEach(line => {
-      //   if (line) {
+      // function isEmpty(element) { 
+      //   if (element !== '') {
       //     return true;
-      //   } else {
-      //     return false;
       //   }
-      // })
+      // }
 
-  
-
-        
-        if (winningCombinations[0].every(isX)) {
+       for (let i = 0; i < winningCombinations.length; i++) { 
+        let singleWinningCombo = winningCombinations[i];
+        // console.log(singleWinningCombo);
+        // console.log(winningCombinations);
+        if (singleWinningCombo.every(isX)) {
           winner = true;
           displayController.printWinner(winner);
-      
-        } else if (winningCombinations[0].every(isO)) {
+          break;
+        } else if (singleWinningCombo.every(isO)) {
           winner = false;
           displayController.printWinner(winner);
-        } else {
-          winner = false;
-          // checkForWin(gameBoard.board); // no winner, call function again to check for winner
-          // displayController.printWinner(winner);
+          break;
+        } else if (gameBoard.board.every(element => element !== '')) {
+          winner = 'draw';
+          displayController.printWinner(winner);
+          break;
         }
+      }
       
       return winner;
-  };
+    };
 
-  checkForWin(board);
+  // checkForWin(board);
 
     const setCell = (index, value) => {
     // function that updates the contents of a given array index
@@ -163,12 +164,15 @@ const updateDOMCells = () => {
 const printWinner = (winner) => {
     if (winner === true) {
       let printWinnerDOM = document.querySelector('.main-text-output-field');
-      printWinnerDOM.textContent = 'Player1 Wins';
+      printWinnerDOM.textContent = `${playerA.name} Wins!`;
     } else if (winner === false) {
       let printWinnerDOM = document.querySelector('.main-text-output-field');
-      printWinnerDOM.textContent = 'Player2 Wins';
+      printWinnerDOM.textContent = `${playerB.name} Wins!`;
+    } else if (winner === 'draw') {
+      let printWinnerDOM = document.querySelector('.main-text-output-field');
+      printWinnerDOM.textContent = 'Draw';
     }
-};
+  };
 
   return {
     printWinner,
@@ -189,12 +193,14 @@ displayController.updateDOMCells();
 
 gameBoard.checkForWin(gameBoard.board);
 
+displayController.printWinner(winner);
 
 
 
 
 
-console.log(gameBoard.checkForWin(gameBoard.board));
+
+// console.log(gameBoard.checkForWin(gameBoard.board));
 // let playerA;
 // let playerB;
 
