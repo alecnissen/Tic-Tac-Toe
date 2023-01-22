@@ -1,8 +1,6 @@
 let playerA;
 let playerB;
 
-// gameBoard.checkForWin(board);
-
 // Cache DOM:
 
 const boardContainer = document.querySelector('.boardContainer');
@@ -45,11 +43,11 @@ const playerFactory = (name, mark) => {
 
 // store the result of players choice after each turn,
 
-let winner;
 const gameBoard = (() => {
   // generates board
   const board = new Array(9).fill('');
   const checkForWin = () => {
+    let winner;
     let winningCombinations = [
      [board[0], board[1], board[2]],
      [board[3], board[4], board[5]],
@@ -92,7 +90,8 @@ const gameBoard = (() => {
           break;
         }
       }
-      
+      // gameBoard.checkForWin();
+      // displayController.printWinner(winner);
       return winner;
     };
 
@@ -139,12 +138,14 @@ const updateBoard = (e) => {
       let textField = document.querySelector('.main-text-output-field');
       textField.textContent = `${playerB.name}'s turn`;
       gameBoard.setCell(cellIndex, 'X');
+      gameBoard.checkForWin();
       playerTurn = 2;
     // gameBoard.checkForWin(gameBoard.board);
     } else {
       let textField = document.querySelector('.main-text-output-field');
       textField.textContent = `${playerA.name}'s turn`;
       gameBoard.setCell(cellIndex, 'O');
+      gameBoard.checkForWin();
       playerTurn = 1;
     // gameBoard.checkForWin(gameBoard.board);
     }
@@ -193,7 +194,7 @@ displayController.updateDOMCells();
 
 gameBoard.checkForWin(gameBoard.board);
 
-displayController.printWinner(winner);
+// displayController.printWinner(winner);
 
 
 
