@@ -80,9 +80,11 @@ const gameBoard = (() => {
 
     const setCell = (index, value) => {
     // function that updates the contents of a given array index
-    // if the index is empty fill it, 
+    // if the index is empty fill it,
     // else the index is not empty (full) don't fill, just return the board
+    if (board[index] === '') {
       board[index] = value;
+  }
       return board;
     };
 
