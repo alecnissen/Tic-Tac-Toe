@@ -16,9 +16,9 @@ const startGameFunction = startGameButton.addEventListener('click', function (e)
   
   const playerInputValue2 = document.getElementById('player2-input-field').value;
 
-   playerA = playerFactory(playerInputValue1, 'X');
+   playerA = playerFactory(playerInputValue1, 'X'); // pass mark as a variable here `${}`
 
-   playerB = playerFactory(playerInputValue2, 'O'); 
+   playerB = playerFactory(playerInputValue2, 'O'); // pass mark as a variable here `${}`
 
   let outputField = document.querySelector('.main-text-output-field');
   
@@ -29,17 +29,6 @@ const startGameFunction = startGameButton.addEventListener('click', function (e)
 const playerFactory = (name, mark) => {
   return { name, mark };
 };
-
-// checking for winning conditions, need to check if 3 cells in a row
-// 3 cells can be horizontal, vertical, and diganol.
-// check if 3 cell INDEXES match a pattern.
-// check for win accepts a marker, what is a marker
-
-// function takes in a marker, should it take in the board???
-// pass the board to it, board is evaluated/checked, compared to see if board matches a condition
-// stores all winning combinations in an array 
-// conditional to check, if the board matches the winning conditions?
-// if board parameter passed in, .includes any of these winning combinations
 
 // store the result of players choice after each turn,
 
@@ -64,18 +53,10 @@ const gameBoard = (() => {
 
       function isO(element) {
         return element === "O";
-      } 
-
-      // function isEmpty(element) { 
-      //   if (element !== '') {
-      //     return true;
-      //   }
-      // }
+      }
 
        for (let i = 0; i < winningCombinations.length; i++) { 
         let singleWinningCombo = winningCombinations[i];
-        // console.log(singleWinningCombo);
-        // console.log(winningCombinations);
         if (singleWinningCombo.every(isX)) {
           winner = true;
           displayController.printWinner(winner);
@@ -95,10 +76,12 @@ const gameBoard = (() => {
       return winner;
     };
 
-  // checkForWin(board);
+  // checkForWin(board); 
 
     const setCell = (index, value) => {
     // function that updates the contents of a given array index
+    // if the index is empty fill it, 
+    // else the index is not empty (full) don't fill, just return the board
       board[index] = value;
       return board;
     };
@@ -129,7 +112,6 @@ const displayController = (() => {
 
 const boardCells = document.querySelectorAll('.box');
 const boardCellsArray = Array.from(boardSquares);
-// console.log(boardCellsArray);
 let playerTurn = 1;
 
 const updateBoard = (e) => {
@@ -137,26 +119,22 @@ const updateBoard = (e) => {
     if (playerTurn === 1) {
       let textField = document.querySelector('.main-text-output-field');
       textField.textContent = `${playerB.name}'s turn`;
-      gameBoard.setCell(cellIndex, 'X');
+      gameBoard.setCell(cellIndex, 'X'); // change player mark here `${}`
       gameBoard.checkForWin();
       playerTurn = 2;
-    // gameBoard.checkForWin(gameBoard.board);
     } else {
       let textField = document.querySelector('.main-text-output-field');
       textField.textContent = `${playerA.name}'s turn`;
-      gameBoard.setCell(cellIndex, 'O');
+      gameBoard.setCell(cellIndex, 'O'); // change player mark here `${}`
       gameBoard.checkForWin();
       playerTurn = 1;
-    // gameBoard.checkForWin(gameBoard.board);
     }
-    // console.log(gameBoard.board);
   updateDOMCells();
 };
 
 const updateDOMCells = () => {
     boardSquaresArray.forEach(cell => {
       let cellID = cell.id;
-      // console.log(cellID);
       let value = gameBoard.board[cellID];
       cell.textContent = `${value}`;
     });
