@@ -11,17 +11,16 @@ const startGameButton = document.querySelector('.start-game-btn');
 const startGameFunction = startGameButton.addEventListener('click', function (e) {
   e.preventDefault();
   const playerInputValue1 = document.getElementById('player1-input-field').value;
-  
+
   const playerInputValue2 = document.getElementById('player2-input-field').value;
 
-   playerA = playerFactory(playerInputValue1, 'X');
+  playerA = playerFactory(playerInputValue1, 'X');
 
-   playerB = playerFactory(playerInputValue2, 'O');
+  playerB = playerFactory(playerInputValue2, 'O');
 
   let outputField = document.querySelector('.main-text-output-field');
-  
-  outputField.textContent = `${playerA.name}'s turn`;
 
+  outputField.textContent = `${playerA.name}'s turn`;
 });
 
 const playerFactory = (name, mark) => {
@@ -33,73 +32,71 @@ const gameBoard = (() => {
   const checkForWin = () => {
     let winner;
     let winningCombinations = [
-     [board[0], board[1], board[2]],
-     [board[3], board[4], board[5]],
-     [board[6], board[7], board[8]],
-     [board[0], board[3], board[6]],
-     [board[1], board[4], board[7]],
-     [board[2], board[5], board[8]],
-     [board[0], board[4], board[8]],
-     [board[2], board[4], board[6]],
+      [board[0], board[1], board[2]],
+      [board[3], board[4], board[5]],
+      [board[6], board[7], board[8]],
+      [board[0], board[3], board[6]],
+      [board[1], board[4], board[7]],
+      [board[2], board[5], board[8]],
+      [board[0], board[4], board[8]],
+      [board[2], board[4], board[6]],
     ];
-      function isX(element) {
-        return element === "X";
-      }
+    function isX(element) {
+      return element === 'X';
+    }
 
-      function isO(element) {
-        return element === "O";
-      }
+    function isO(element) {
+      return element === 'O';
+    }
 
-       for (let i = 0; i < winningCombinations.length; i++) {
-        let singleWinningCombo = winningCombinations[i];
-        if (singleWinningCombo.every(isX)) {
-          winner = true;
-          displayController.printWinner(winner);
-          break;
-        } else if (singleWinningCombo.every(isO)) {
-          winner = false;
-          displayController.printWinner(winner);
-          break;
-        } else if (gameBoard.board.every(element => element !== '')) {
-          winner = 'draw';
-          displayController.printWinner(winner);
-          break;
-        }
+    for (let i = 0; i < winningCombinations.length; i++) {
+      let singleWinningCombo = winningCombinations[i];
+      if (singleWinningCombo.every(isX)) {
+        winner = true;
+        displayController.printWinner(winner);
+        break;
+      } else if (singleWinningCombo.every(isO)) {
+        winner = false;
+        displayController.printWinner(winner);
+        break;
+      } else if (gameBoard.board.every(element => element !== '')) {
+        winner = 'draw';
+        displayController.printWinner(winner);
+        break;
       }
-      return winner;
-    };
+    }
+    return winner;
+  };
 
-    const setCell = (index, value) => {
+  const setCell = (index, value) => {
     if (board[index] === '') {
       board[index] = value;
-  }
-      return board;
-    };
+    }
+    return board;
+  };
 
-    const resetBoard = () => {
-      board = new Array(9).fill('');
-    };
+  const resetBoard = () => {
+    board = new Array(9).fill('');
+  };
 
-    const getBoard = () => {
-      return [...board];
-    };
-    return {
-      board,
-      setCell,
-      resetBoard,
-      getBoard,
-      checkForWin,
-      resetBoard,
-    };
+  const getBoard = () => {
+    return [...board];
+  };
+  return {
+    board,
+    setCell,
+    resetBoard,
+    getBoard,
+    checkForWin,
+  };
 })();
 
 const displayController = (() => {
+  const boardCells = document.querySelectorAll('.box');
+  const boardCellsArray = Array.from(boardSquares);
+  let playerTurn = 1;
 
-const boardCells = document.querySelectorAll('.box');
-const boardCellsArray = Array.from(boardSquares);
-let playerTurn = 1;
-
-const updateBoard = (e) => {
+  const updateBoard = (e) => {
     const cellIndex = e.target.getAttribute('data-cell');
     if (playerTurn === 1) {
       let textField = document.querySelector('.main-text-output-field');
@@ -114,18 +111,18 @@ const updateBoard = (e) => {
       gameBoard.checkForWin();
       playerTurn = 1;
     }
-  updateDOMCells();
-};
+    updateDOMCells();
+  };
 
-const updateDOMCells = () => {
+  const updateDOMCells = () => {
     boardSquaresArray.forEach(cell => {
       let cellID = cell.id;
       let value = gameBoard.board[cellID];
       cell.textContent = `${value}`;
     });
-};
+  };
 
-const printWinner = (winner) => {
+  const printWinner = (winner) => {
     if (winner === true) {
       let printWinnerDOM = document.querySelector('.main-text-output-field');
       printWinnerDOM.textContent = `${playerA.name} Wins!`;
@@ -146,7 +143,7 @@ const printWinner = (winner) => {
 })();
 
 boardSquaresArray.forEach(cell => {
-  cell.addEventListener('click', function (e){
+  cell.addEventListener('click', function (e) {
     displayController.updateBoard(e);
   });
 });
