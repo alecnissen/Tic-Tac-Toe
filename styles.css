@@ -1,27 +1,27 @@
 .header-container { 
     display: flex; 
     justify-content: center; 
-    background-color: navy; 
   } 
   
   .header-text { 
-    color: white; 
-    text-decoration: underline; 
-    font-size: 55px; 
+    color: white;  
+    font-size: 85px; 
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
   }  
 
   .input-field-name-containers { 
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-    /* width: 13em;  */
     color: white; 
+    font-family: 'Roboto', sans-serif;
   } 
 
   .wrapper-for-name-inputs { 
     display: flex; 
     justify-content: center;
+    margin-top: -25px; 
   } 
 
   .player1-text, .player2-text { 
@@ -30,60 +30,51 @@
 
   #player1-input-field, 
   #player2-input-field { 
-    /* width: 18em; */
-    height: 2em;  
-    font-size: 20px; 
+    height: 1.5em;  
+    font-size: 1.5rem; 
   }
   
 
   .start-reset-btn-container { 
     display: flex; 
     justify-content: center; 
-    gap: 1em; 
+    gap: 1em;
   } 
 
   .start-game-btn, 
   .reset-btn { 
-    background-color: purple;
+    background-color: rgb(36, 36, 143);
     color: white; 
     height: 3em;
     width: 8em;  
     font-size: 1.5rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
   } 
 
-
-
-
-  /* .gameboard-container { 
-    background-color: pink;
-  }  */ 
-
   .board-container { 
-    /* background-color: green; */ 
-    /* display: flex; 
-    justify-content: center; */
-    /* width: 80em; 
-    height: 80em */
     display: grid; 
     grid-template-columns: repeat(3, auto);
     width: 300px; 
-    /* justify-self: center; */
-    margin: 40px auto;
+    margin: auto;
     justify-content: center;
-    gap: 4px; 
+    gap: 7px; 
   }
 
   .box {
     display: flex;
     justify-content: center;
+    align-items: center;
     background-color: white;
     border: 1px solid black; 
     height: 170px; 
     width: 170px;  
+    font-size: 100px;
+    font-family: 'Roboto', sans-serif;
   }      
   
   body { 
-    background-color: navy;
+    background-color: rgb(40, 40, 158);
   } 
 
   .main-text-output-field { 
@@ -93,25 +84,3 @@
     font-size: 3rem; 
     font-style: italic;
   } 
-
-  /* .x-mark-style { 
-   color: yellow;
-   height: 10px; 
-  }  
-
-  span { 
-    height: 10px;
-  }
- */
-
-.X-class { 
-  font-size: 3rem;
-} 
-
-.box { 
-  display: flex; 
-  justify-content: center;
-  align-items: center;
-  font-size: 100px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
