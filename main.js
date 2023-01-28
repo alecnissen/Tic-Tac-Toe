@@ -98,6 +98,9 @@ const displayController = (() => {
 
   const updateBoard = (e) => {
     const cellIndex = e.target.getAttribute('data-cell');
+    if (e.target.textContent !== '') {
+      return;
+    }
     if (playerTurn === 1) {
       let textField = document.querySelector('.main-text-output-field');
       textField.textContent = `${playerB.name}'s turn`;
